@@ -8,7 +8,7 @@ This Form library is currently WIP.
 
 To create a new Form, declare `new Form()` and assign to a variable.
 
-```
+```javascript
 var form = new Form();
 ```
 
