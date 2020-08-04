@@ -47,7 +47,8 @@ class Form {
       console.log("is valid");
       fetch(this.path, {
         method: "POST",
-        body: new FormData(document.querySelector("form.hewy-form"))
+        body: new FormData(document.querySelector("form.hewy-form")),
+        crossOrigin: this.crossOrigin,
       }).then(function (response) {
         return response.text();
       }
