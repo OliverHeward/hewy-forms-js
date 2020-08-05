@@ -1,11 +1,11 @@
-# [WIP] Forms.js - v0.5 
+# [WIP] Forms.js
 
 ## Breakdown
 
 This Form library is currently WIP.
 
 
-## Upcoming Version Notes: 0.5 > 1.0
+## Upcoming Version Notes: 1.0
 * Arrays to be passable to creation elements arguments
 
   * Potential creation of `PromiseForm()` to batch send `POST` requests from an array.
