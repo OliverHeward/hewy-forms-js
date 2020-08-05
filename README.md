@@ -66,14 +66,16 @@ body.appendChild(form.create());
 When creating a given element for the form, an object is passed to the function, giving it `key`, `value` pairs to then be used upon creation of the element.
 
 ### Key / Value pairing examples.
-| Key[Attribute]      | Value |
-| ------------------- | -----------  |
-| type                | `@{string}` - text / email / tel / checkbox      |
-| placeholder         | `@{string}` - "First Name" |
-| class               | `@{string}` `@[array]` - "form-input" ["form-input", "half-width"] |
-| id                  | `@{string}` `@[array]` - "formInput" ["formInput", "firstName"] |
-| name                | `@{string}` "first_name" |
-| required            | `@{boolean}` true / false |
+| Key[Attribute]      | Input Type | Value |
+| ------------------- | ---------- | -----------  |
+| type                | all        |`@{string}` - text, email, tel, checkbox      |
+| placeholder         | password, search, tel, text url,        |`@{string}` - "First Name" |
+| class               | all        |`@{string}` `@[array]` - "form-input" ["form-input", "half-width"] |
+| id                  | all        |`@{string}` `@[array]` - "formInput" ["formInput", "firstName"] |
+| name                | all        |`@{string}` - "first_name" |
+| required            | all        |`@{boolean}` - true / false |
+
+
 ## Creating Input Fields
 
 Attached to the Form, is a prototype set up using `.createInputElement`.
