@@ -80,7 +80,6 @@ myForm.createTextArea({
   });
 
 myForm.createInputElement({
-  elementType: "checkbox",
   type: "checkbox",
   placeholder:
     "By submitting this form you agree to the processing of your data.",

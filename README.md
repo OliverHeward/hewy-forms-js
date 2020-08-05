@@ -66,55 +66,135 @@ body.appendChild(form.create());
 When creating a given element for the form, an object is passed to the function, giving it `key`, `value` pairs to then be used upon creation of the element.
 
 ### Key / Value pairing examples.
-| Key[Attribute]      | Input Type | Value |
-| ------------------- | ---------- | -----------  |
-| type                | all        |`@{string}` - text, email, tel, checkbox      |
-| placeholder         | password, search, tel, text url,        |`@{string}` - "First Name" |
-| class               | all        |`@{string}` `@[array]` - "form-input" ["form-input", "half-width"] |
-| id                  | all        |`@{string}` `@[array]` - "formInput" ["formInput", "firstName"] |
-| name                | all        |`@{string}` - "first_name" |
-| required            | almost all        |`@{boolean}` - true, false |
-| autocomplete        | all        |`@{boolean}` - true, false |
-| max                 | numeric types | `@{integer}` - 10      |
-| maxlength           | password, search, tel, text, url | `@{integer}` - 22 |
-| min                 | numeric types | `@{integer}` - 2 |
-| minlength           | password, search, tel, text, url | `@{integer}` - 3 |
+| Key[Attribute] | Input Type                       | Value                                                              |
+| -------------- | -------------------------------- | ------------------------------------------------------------------ |
+| type           | all                              | `@{string}` - text, email, tel, checkbox                           |
+| placeholder    | password, search, tel, text url, | `@{string}` - "First Name"                                         |
+| class          | all                              | `@{string}` `@[array]` - "form-input" ["form-input", "half-width"] |
+| id             | all                              | `@{string}` `@[array]` - "formInput" ["formInput", "firstName"]    |
+| name           | all                              | `@{string}` - "first_name"                                         |
+| required       | almost all                       | `@{boolean}` - true, false                                         |
+| autocomplete   | all                              | `@{boolean}` - true, false                                         |
+| max            | numeric types                    | `@{integer}` - 10                                                  |
+| maxlength      | password, search, tel, text, url | `@{integer}` - 22                                                  |
+| min            | numeric types                    | `@{integer}` - 2                                                   |
+| minlength      | password, search, tel, text, url | `@{integer}` - 3                                                   |
 
 
-## Creating Input Fields
+# Creating Form Elements
 
-Attached to the Form, is a prototype set up using `.createInputElement`.
+## Creating Input Elements
+Attached to the Form, is a prototype defined as `.createInputElement`.
 
 `.createInputElement` takes in an object with matching HTML attribute names with key values. Giving more flexibility to pass more attributes to given inputs.
 
-In this example, we are creating a `First Name` and `Phone` input fields.
+In this example, we are creating a `First Name` and `Checkbox` input fields.
 
 ```javascript
 form.createInputElement({
-  type: "text", // defines input type - will omit text if not assigned
+  type: "text", // defines input type 
   placeholder: "First Name", // defines placeholder text
-  className: "form-input", // custom className
+  class: "form-input", // custom className
   id: "formInput", // custom ID
   name: "first_name", // defines name for $_POST
-  shouldValidate: true, // defines whether this element requires Validation
+  required: true, // defines whether this element requires Validation
+  autocomplete: true, // allow for autocomplete 
+});
+
+form.createInputElement({
+  type: "checkbox", // defines input type
+  placeholder:
+    "By submitting this form you agree to the processing of your data.", // defines text to appear alongside checkbox
+  class: ["form-checkbox", "terms"], // note the use of array class here
+  id: ["formCheckbox", "terms"], // note the use of array ID here 
+  name: "terms", // defines name for $_POST
+  required: true, // defines whether this element requires Validation
+})
+```
+
+## Creating Select Elements
+Attached to the Form, is a prototype defined as `.createSelectElement`.
+
+`.createSelectElement` also takes in an object with matching HTML attribute names with Key/Values pairs. Although this function also takes in a nested object - `option: {}` 
+
+`option: {}` is a nested object to be able to set a `placeholder` for the select when unselected, and the `options` array is used for listing all avaliable options for the given select.
+
+```javascript
+form.createSelectElement({
+  class: "form-select", // defines class
+  id: "formSelect", // defines ID
+  option: {
+    placeholder: "Select a car...", // placeholder for unselected select
+    options: ["Volvo", "Saab", "Fiat", "Audi"], // array of options for the select
+  },
+  name: "car_choice", // defines name for $_POST
+  required: true, // defines whether this element requires Validation
+});
+```
+
+## Creating Textarea Elements
+Attached to the Form, is a prototype defines as `.createTextArea`.
+
+`.createTextArea` also takes in an object with matching HTML attribute names with Key/Value pairs. Although this function also takes in two nested objects of `title: {}` and `copy: {}`.
+
+`title: {}` is a nested object used for setting a custom title for the textarea, once set it will create a `<h2></h2>` element and also allows for all Key/Value types of HTML attributes for its tag.
+
+`copy: {}` is a nested object used for setting a custom sub title or "copy", once set it will create a `<p></p>` element and also allows for all Key/Value types of HTML attributes for its tag.
+
+To set the text for both `title: {}` and `copy: {}`, use the `value` key. An example of 3 different Text Areas
+
+```javascript
+// Simple Textarea
+myForm.createTextArea({
+    class: "my-textarea",
+    id: "textArea",
+    placeholder: "Leave us a message...",
+    name: "message",
+  });
+// Textarea with "copy"
+myForm.createTextArea({
+  class: "my-textarea",
+  id: "textArea",
+  placeholder: "Leave us a message...",
+  name: "message",
+  copy: {
+    class: "text-area-copy",
+    id: "textAreaCopy",
+    value: "Why not tell us more about your experience with us?",
+  },
+});
+// Complete Textarea
+myForm.createTextArea({
+  class: "my-textarea",
+  id: "textArea",
+  placeholder: "Leave us a message...",
+  name: "message",
+  title: {
+    class: "text-area-title",
+    id: "title",
+    value: "Leave us a message!",
+  },
+  copy: {
+    class: "text-area-copy",
+    id: "textAreaCopy",
+    value: "Why not tell us more about your experience with us?",
+  },
 });
 ```
 
 ## Creating the Submit Button
+Attached to the Form, is a prototype defines as `.createSubmit`.
 
-Unlike creating input fields, the submit button has its own prototype assigned to `Form`. 
-
-You can create a form submit button by calling the `.createSubmit()` function on your form, and passing `onclick: form.validate` to invoke the validation function prior to the form submitting.
+`.createSubmit` also takes in an object with matching HTML attribute names with Key/Value pairs. This function does not take in any additional nested objects.
 
 ```javascript
 form.createSubmit({
   text: "Submit", // defines Text to sit within the Button
-  className: "cta", // custom className
+  type: "submit", // points the validation function
+  class: "cta", // custom className
   id: "formSubmit", // custom ID
-  onclick: form.validate // points the validation function
 });
 ```
-
 
 ## How `.validate()` works
 
