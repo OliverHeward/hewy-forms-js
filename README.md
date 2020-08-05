@@ -106,7 +106,7 @@ form.createInputElement({
   placeholder:
     "By submitting this form you agree to the processing of your data.", // defines text to appear alongside checkbox
   class: ["form-checkbox", "terms"], // note the use of array class here
-  id: ["formCheckbox", "terms"], // note the use of array ID here 
+  id: "formCheckbox", // note the use of array ID here 
   name: "terms", // defines name for $_POST
   required: true, // defines whether this element requires Validation
 })
@@ -141,7 +141,7 @@ Attached to the Form, is a prototype defines as `.createTextArea`.
 
 `copy: {}` is a nested object used for setting a custom sub title or "copy", once set it will create a `<p></p>` element and also allows for all Key/Value types of HTML attributes for its tag.
 
-To set the text for both `title: {}` and `copy: {}`, use the `value` key. An example of 3 different Text Areas
+To set the text for both `title: {}` and `copy: {}`, use the `value` key. Below is examples of 3 different Text Areas for reference.
 
 ```javascript
 // Simple Textarea
@@ -151,6 +151,7 @@ myForm.createTextArea({
     placeholder: "Leave us a message...",
     name: "message",
   });
+
 // Textarea with "copy"
 myForm.createTextArea({
   class: "my-textarea",
@@ -163,6 +164,7 @@ myForm.createTextArea({
     value: "Why not tell us more about your experience with us?",
   },
 });
+
 // Complete Textarea
 myForm.createTextArea({
   class: "my-textarea",

@@ -24,9 +24,11 @@ h1.form-title {
 form {
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: space-between;
+    flex-flow: row wrap;
     text-align: center;
+    width: 80%;
+    margin: 0 auto;
 
 }
 
@@ -35,11 +37,24 @@ input[type="tel"],
 input[type="email"],
 textarea {
     margin: 10px auto;
-    width: 200px;
+    width: 100%;
     padding: 5px 8px;
     border: 1px solid #3a3a3a;
     border-radius: 2px;
 }
+
+select {
+    display: block;
+    width: 100%;
+}
+button[type="submit"] {
+    margin: 20px auto;
+}
+form div {
+    width: 100%;
+}
+
+
 
 form input.error {
     border: 1px solid #f40000;
@@ -49,5 +64,11 @@ form input.error {
 form input.error::placeholder {
     color: #f40000;
     opacity: .6;
+}
+
+@media screen and (min-width: 768px) {
+    input.half-width {
+        width: 46%;
+    }
 }
 

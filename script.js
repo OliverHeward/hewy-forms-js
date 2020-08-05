@@ -11,7 +11,7 @@ console.log(myForm);
 myForm.createInputElement({
   type: "text",
   placeholder: "First Name",
-  class: "form-input",
+  class: ["form-input", "half-width"],
   id: "formInput",
   name: "first_name",
   required: true,
@@ -20,8 +20,8 @@ myForm.createInputElement({
 myForm.createInputElement({
   type: "text",
   placeholder: "Last Name",
-  class: "form-input",
-  id: "formInput",
+  class: ["form-input", "half-width"],
+  id: ["formInput", "half"],
   name: "last_name",
   required: true,
 });
@@ -52,7 +52,7 @@ myForm.createInputElement({
 });
 
 myForm.createSelectElement({
-  class: "form-select",
+  class: ["form-select", "select-dropdown"],
   id: "formSelect",
   option: {
     placeholder: "Select a car...",

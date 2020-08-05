@@ -22,23 +22,43 @@ class Form {
   }
 
   submit(isValid) {
-    console.log("submit was called");
-    console.log('[isValid]',isValid);
     if (isValid) {
-      console.log("is valid");
       fetch(this.path, {
         method: "POST",
         body: new FormData(document.querySelector("form.hewy-form")),
         crossOrigin: this.crossOrigin,
-      }).then(function (response) {
-        return response.text();
-      }
-      ).then(function (html) {
-        return console.log(html);
-      });
+      })
+        .then(function (response) {
+          return response.text();
+        })
+        .then(function (html) {
+          let inputs = Array.from(document.querySelectorAll("input"));
+          let textareas = Array.from(document.querySelectorAll("textarea"));
+          let selects = Array.from(document.querySelectorAll("select"));
+          let checkboxes = Array.from(
+            document.querySelectorAll('input[type="checkbox"]')
+          );
+
+          inputs.map(function (input) {
+            input.value = "";
+          });
+
+          textareas.map(function (textarea) {
+            textarea.value = "";
+          });
+
+          selects.map(function (select) {
+            select.selectedIndex = 0;
+          });
+
+          checkboxes.map(function (checkbox) {
+            checkbox.checked = false;
+          });
+          return console.log(html);
+        });
     } else {
       alert("some of the fields have returned invalid.");
-      console.log("form was not valid");
+      // console.log("form was not valid");
     }
   }
 }
@@ -54,58 +74,79 @@ Form.prototype.createInputElement = function (args) {
       createLabel = document.createElement("LABEL");
       container.appendChild(createInput);
       container.appendChild(createLabel);
-      for(const[key, value] of Object.entries(args)) {
-          createInput.setAttribute(key, value);
-          if(key === "placeholder") {
-            createLabel.innerText = value;
+      for (const [key, value] of Object.entries(args)) {
+        if (key === "placeholder") {
+          createLabel.innerText = value;
+        } else if (
+          (key === "class" || key === "id") &&
+          value.constructor.name === "Array"
+        ) {
+          for (var c = 0; c < value.length; c++) {
+            createInput.classList.add(value[c]);
           }
+        } else {
+          createInput.setAttribute(key, value);
+        }
       }
       form.appendChild(container);
       break;
     default:
-      for(const[key, value] of Object.entries(args)) {
+      for (const [key, value] of Object.entries(args)) {
+        if (key === "class" && value.constructor.name === "Array") {
+          for (var c = 0; c < value.length; c++) {
+            createInput.classList.add(value[c]);
+          }
+        } else {
           createInput.setAttribute(key, value);
+        }
       }
       form.appendChild(createInput);
       break;
   }
 };
 
-Form.prototype.createSelectElement = function(args) {
+Form.prototype.createSelectElement = function (args) {
   let select = document.createElement("SELECT");
 
   // Iterate over args object to assign attr-value pairs
-  for(const[key, value] of Object.entries(args)) {
-    select.setAttribute(key, value);
+  for (const [key, value] of Object.entries(args)) {
     // When iteration reaches options, map over the array and create "option" elements
-    if(key === "option") {
+    if (key === "option") {
       let placeholder = document.createElement("OPTION");
       placeholder.value = null;
       placeholder.innerText = args.option.placeholder;
       select.appendChild(placeholder);
-      args.option.options.map(function(choice) {
+      args.option.options.map(function (choice) {
         let option = document.createElement("OPTION");
         option.value = choice;
         option.innerText = choice;
         select.appendChild(option);
       });
+    } else if (key === "class" && value.constructor.name === "Array") {
+      for (var c = 0; c < value.length; c++) {
+        if (key === "class") {
+          select.classList.add(value[c]);
+        }
+      }
+    } else {
+      select.setAttribute(key, value);
     }
   }
 
   form.appendChild(select);
-}
+};
 
-Form.prototype.createTextArea = function(args) {
+Form.prototype.createTextArea = function (args) {
   let textContainer = document.createElement("DIV");
   let heading = document.createElement("H2");
   let sub_copy = document.createElement("P");
   let textArea = document.createElement("TEXTAREA");
   textContainer.appendChild(textArea);
 
-  Object.keys(args).forEach(function(key, index) {
-    if(key === "title") {
-      for(const[k, v] of Object.entries(args[key])) {
-        if(k === "value") {
+  Object.keys(args).forEach(function (key, index) {
+    if (key === "title") {
+      for (const [k, v] of Object.entries(args[key])) {
+        if (k === "value") {
           heading.innerText = v;
         } else {
           heading.setAttribute(k, v);
@@ -113,8 +154,8 @@ Form.prototype.createTextArea = function(args) {
       }
       textContainer.insertBefore(heading, textArea);
     } else if (key === "copy") {
-      for(const[k, v] of Object.entries(args[key])) {
-        if(k === "value") {
+      for (const [k, v] of Object.entries(args[key])) {
+        if (k === "value") {
           sub_copy.innerText = v;
         } else {
           sub_copy.setAttribute(k, v);
@@ -124,15 +165,14 @@ Form.prototype.createTextArea = function(args) {
     } else {
       textArea.setAttribute(key, args[key]);
     }
-  })
+  });
 
   form.appendChild(textContainer);
-}
-
+};
 
 Form.prototype.createSubmit = function (args) {
   let button = document.createElement("BUTTON");
-  for(const[key, value] of Object.entries(args)) {
+  for (const [key, value] of Object.entries(args)) {
     button.setAttribute(key, value);
     if (key === "text") {
       button.innerText = value;
@@ -172,6 +212,16 @@ Form.prototype.validate = function () {
           inputs[i].classList.add("error");
         }
         break;
+      case "checkbox":
+        if (inputs[i].required && inputs[i].checked) {
+          inputs[i].classList.remove("error");
+        } else if (!inputs.required) {
+          inputs[i].classList.remove("error");
+        } else {
+          error = parseInt(error + 1);
+          inputs[i].classList.add("error");
+        }
+        break;
       default:
         if (inputs[i].value !== "" && inputs[i].required) {
           inputs[i].classList.remove("error");
@@ -185,11 +235,13 @@ Form.prototype.validate = function () {
         break;
     }
   }
+
   let textarea = document.querySelectorAll("textarea");
-  for(var t = 0; t < textarea.length; t++) {
-    if(textarea[t].required && textarea[t].value !== "") {
+  for (var t = 0; t < textarea.length; t++) {
+    if (textarea[t].required && textarea[t].value !== "") {
+      textarea[t].classList.remove("error");
     } else if (!textarea[t].required) {
-      textarea[t].classList.remove("error"); 
+      textarea[t].classList.remove("error");
     } else {
       error = parseInt(error + 1);
       textarea[t].classList.add("error");
@@ -197,8 +249,15 @@ Form.prototype.validate = function () {
   }
 
   let selects = document.querySelectorAll("select");
-  for(var s = 0; s < selects.length; s++) {
-    
+  for (var s = 0; s < selects.length; s++) {
+    if (selects[s].required && selects[s].selectedIndex !== 0) {
+      selects[s].classList.remove("error");
+    } else if (!selects[s].required) {
+      selects[s].classList.remove("error");
+    } else {
+      error = parseInt(error + 1);
+      selects[s].classList.add("error");
+    }
   }
 
   if (error === 0) {
