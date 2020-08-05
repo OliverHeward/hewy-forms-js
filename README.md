@@ -91,9 +91,9 @@ form.createFormElement({
 
 ## Creating the Submit Button
 
-Unlike creating input fields, the submit button has its own prototype assigned to `Form`. You can create a form submit button by calling the `.createSubmit()` function on your form. 
+Unlike creating input fields, the submit button has its own prototype assigned to `Form`. 
 
-Once the submit button is created, 
+You can create a form submit button by calling the `.createSubmit()` function on your form, and passing `onclick: form.validate` to invoke the validation function prior to the form submitting.
 
 ```javascript
 form.createSubmit({
