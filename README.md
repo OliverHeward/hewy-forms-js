@@ -10,7 +10,7 @@ This Form library is currently WIP.
 
   * Potential creation of `PromiseForm()` to batch send `POST` requests from an array.
 
-  * `Form()`, `createFormElement()` and `createSubmit()` will take the ability to handle arrays for `id` and `className`.
+  * `Form()`, `createFormElement()` and `createSubmit()` will take the ability to handle arrays for `class`.
 
 * Generation ability of all inputs, excluding Image/File.
 
