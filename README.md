@@ -68,12 +68,12 @@ When creating a given element for the form, an object is passed to the function,
 ### Key / Value pairing examples.
 | Key[Attribute]      | Value |
 | ------------------- | -----------  |
-| type                | {string} text / email / tel / checkbox      |
-| placeholder         | {string} "First Name" |
-| class               | {string} [array] "form-input" ["form-input", "half-width"] |
-| id                  | {string} [array] "formInput" ["formInput", "firstName"] |
-| name                | {string} "first_name" |
-| required            | {boolean} true / false |
+| type                | `@{string}` - text / email / tel / checkbox      |
+| placeholder         | `@{string}` - "First Name" |
+| class               | `@{string}` `@[array]` - "form-input" ["form-input", "half-width"] |
+| id                  | `@{string}` `@[array]` - "formInput" ["formInput", "firstName"] |
+| name                | `@{string}` "first_name" |
+| required            | `@{boolean}` true / false |
 ## Creating Input Fields
 
 Attached to the Form, is a prototype set up using `.createInputElement`.
