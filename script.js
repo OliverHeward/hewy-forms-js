@@ -63,7 +63,7 @@ myForm.createSelectElement({
 });
 
 myForm.createTextArea({
-    class: "my-textarea",
+    class: ["my-textarea", "text-area"],
     id: "textArea",
     placeholder: "Leave us a message...",
     name: "message",

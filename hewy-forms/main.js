@@ -1,8 +1,5 @@
 /*
- *
- *
- * JavaScript Form Creation and Validation Library
- *
+ * JavaScript Form complete with Validation & Submission
  */
 
 class Form {
@@ -32,6 +29,7 @@ class Form {
           return response.text();
         })
         .then(function (html) {
+          // Clean up Form
           let inputs = Array.from(document.querySelectorAll("input"));
           let textareas = Array.from(document.querySelectorAll("textarea"));
           let selects = Array.from(document.querySelectorAll("select"));
@@ -143,30 +141,42 @@ Form.prototype.createTextArea = function (args) {
   let textArea = document.createElement("TEXTAREA");
   textContainer.appendChild(textArea);
 
-  Object.keys(args).forEach(function (key, index) {
-    if (key === "title") {
-      for (const [k, v] of Object.entries(args[key])) {
-        if (k === "value") {
-          heading.innerText = v;
-        } else {
-          heading.setAttribute(k, v);
+  for(const [key, value] of Object.entries(args)) {
+    switch(key) {
+      case "title":
+        for(const [k, v] of Object.entries(args[key])) {
+          if(k === "value") {
+            heading.innerText = v;
+          } else {
+            heading.setAttribute(k, v);
+          }
         }
-      }
-      textContainer.insertBefore(heading, textArea);
-    } else if (key === "copy") {
-      for (const [k, v] of Object.entries(args[key])) {
-        if (k === "value") {
-          sub_copy.innerText = v;
-        } else {
-          sub_copy.setAttribute(k, v);
+        textContainer.insertBefore(heading, textArea);
+        break;
+      case "copy":
+        for (const [k,v] of Object.entries(args[key])) {
+          if(k === "value") {
+            sub_copy.innerText = v;
+          } else {
+            sub_copy.setAttribute(k, v);
+          }
         }
-      }
-      textContainer.insertBefore(sub_copy, textArea);
-    } else {
-      textArea.setAttribute(key, args[key]);
+        textContainer.insertBefore(sub_copy, textArea);
+        break;
+      case "class":
+        console.log(value.constructor.name);
+        if(value.constructor.name === "Array") {
+          for(var c = 0; c < value.length; c++) {
+            textArea.classList.add(value[c])
+          }
+        } else {
+          textArea.classList.add(value);
+        }
+        break;
+      default: 
+        textArea.setAttribute(key, args[key]);
     }
-  });
-
+  }
   form.appendChild(textContainer);
 };
 
@@ -178,7 +188,7 @@ Form.prototype.createSubmit = function (args) {
       button.innerText = value;
     }
   }
-  button.className = "form-submit-cta";
+  button.classList.add("form-submit-cta");
   form.appendChild(button);
 };
 
