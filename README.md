@@ -133,7 +133,7 @@ form.createSelectElement({
 ```
 
 ## Creating Textarea Elements
-Attached to the Form, is a prototype defines as `.createTextArea`.
+Attached to the Form, is a prototype defined as `.createTextArea`.
 
 `.createTextArea` also takes in an object with matching HTML attribute names with Key/Value pairs. Although this function also takes in two nested objects of `title: {}` and `copy: {}`.
 
@@ -185,7 +185,7 @@ myForm.createTextArea({
 ```
 
 ## Creating the Submit Button
-Attached to the Form, is a prototype defines as `.createSubmit`.
+Attached to the Form, is a prototype defined as `.createSubmit`.
 
 `.createSubmit` also takes in an object with matching HTML attribute names with Key/Value pairs. This function does not take in any additional nested objects.
 
