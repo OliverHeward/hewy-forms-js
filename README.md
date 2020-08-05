@@ -71,7 +71,7 @@ When creating a given element for the form, an object is passed to the function,
 | type           | all                              | `@{string}` - text, email, tel, checkbox                           |
 | placeholder    | password, search, tel, text url, | `@{string}` - "First Name"                                         |
 | class          | all                              | `@{string}` `@[array]` - "form-input" ["form-input", "half-width"] |
-| id             | all                              | `@{string}` `@[array]` - "formInput" ["formInput", "firstName"]    |
+| id             | all                              | `@{string}` - "formInput"    |
 | name           | all                              | `@{string}` - "first_name"                                         |
 | required       | almost all                       | `@{boolean}` - true, false                                         |
 | autocomplete   | all                              | `@{boolean}` - true, false                                         |
@@ -106,7 +106,7 @@ form.createInputElement({
   placeholder:
     "By submitting this form you agree to the processing of your data.", // defines text to appear alongside checkbox
   class: ["form-checkbox", "terms"], // note the use of array class here
-  id: "formCheckbox", // note the use of array ID here 
+  id: "formCheckbox", // custom id
   name: "terms", // defines name for $_POST
   required: true, // defines whether this element requires Validation
 })

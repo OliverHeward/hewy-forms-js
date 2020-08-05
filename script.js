@@ -21,7 +21,7 @@ myForm.createInputElement({
   type: "text",
   placeholder: "Last Name",
   class: ["form-input", "half-width"],
-  id: ["formInput", "half"],
+  id: "formInput",
   name: "last_name",
   required: true,
 });
