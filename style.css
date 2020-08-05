@@ -8,4 +8,17 @@ form {
 form input {
     margin: 10px auto;
     width: 200px;
+    padding: 5px 8px;
+    border: 1px solid #3a3a3a;
+    border-radius: 2px;
+}
+
+form input.error {
+    border: 1px solid #f40000;
+    border-radius: 2px;
+}
+
+form input.error::placeholder {
+    color: #f40000;
+    opacity: .6;
 }

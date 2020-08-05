@@ -43,20 +43,22 @@ class Form {
 
   submit(isValid) {
     console.log("submit was called");
+    console.log('[isValid]',isValid);
     if (isValid) {
       console.log("is valid");
-      fetch(this.path, {
-        method: "POST",
-        body: new FormData(document.querySelector("form.hewy-form")),
-        crossOrigin: this.crossOrigin,
-      }).then(function (response) {
-        return response.text();
-      }
-      ).then(function (html) {
-        return console.log(html);
-      });
+      // fetch(this.path, {
+      //   method: "POST",
+      //   body: new FormData(document.querySelector("form.hewy-form")),
+      //   crossOrigin: this.crossOrigin,
+      // }).then(function (response) {
+      //   return response.text();
+      // }
+      // ).then(function (html) {
+      //   return console.log(html);
+      // });
     } else {
       alert("some of the fields have returned invalid.");
+      console.log("form was not valid");
     }
   }
 }
@@ -82,7 +84,6 @@ Form.prototype.createFormElement = function (args) {
   let createInput;
   let name = args.name;
   let form = document.querySelector("form");
-  let button = document.querySelector(".form-submit-cta");
 
   if(args.value == "" || args.value == undefined) {
     args.value = "";
@@ -91,7 +92,7 @@ Form.prototype.createFormElement = function (args) {
   switch (type) {
     case "input":
       createInput = document.createElement("INPUT");
-      createInput.setAttribute("type", input);
+      createInput.type = input;
       createInput.className = classes;
       createInput.id = id;
       createInput.placeholder = args.placeholder;
@@ -128,11 +129,13 @@ Form.prototype.createSubmit = function (args) {
   button.classList.add(args.className);
   button.id = args.id;
   button.innerText = args.text;
+  button.onclick = args.onclick;
   form.appendChild(button);
 };
 
-Form.prototype.validate = function () {
+Form.prototype.validate = function (event) {
   var error = 0;
+  event.preventDefault();
   let inputs = document.querySelectorAll("input");
 
   for (var i = 0; i < inputs.length; i++) {
@@ -163,7 +166,15 @@ Form.prototype.validate = function () {
         }
         break;
       default:
-        // console.log('[default]', inputs[i]);
+        if (inputs[i].value !== "" && inputs[i].required) {
+          inputs[i].classList.remove("error");
+        } else if (!inputs[i].required) {
+          inputs[i].classList.remove("error");
+          break;
+        } else {
+          error = parseInt(error + 1);
+          inputs[i].classList.add("error");
+        }
         break;
     }
   }
@@ -230,11 +241,5 @@ myForm.createSubmit({
   text: "Submit",
   className: "cta",
   id: "formSubmit",
-});
-
-var buttonTest = document.querySelector("button");
-
-buttonTest.addEventListener("click", function (event) {
-  event.preventDefault();
-  myForm.validate();
+  onclick: myForm.validate,
 });

@@ -1,8 +1,21 @@
-# [WIP] Forms.js
+# [WIP] Forms.js - v0.5 
 
 ## Breakdown
 
 This Form library is currently WIP.
+
+
+## Upcoming Version Notes: 0.5 > 1.0
+* Arrays to be passable to creation elements arguments
+
+  * Potential creation of `PromiseForm()` to batch send `POST` requests from an array.
+
+  * `Form()`, `createFormElement()` and `createSubmit()` will take the ability to handle arrays for `id` and `className`.
+
+* Generation ability of all inputs, excluding Image/File.
+
+  * Complete with error handling, validation and submission.
+
 
 ## Declaring a new Form
 
@@ -80,27 +93,17 @@ form.createFormElement({
 
 Unlike creating input fields, the submit button has its own prototype assigned to `Form`. You can create a form submit button by calling the `.createSubmit()` function on your form. 
 
+Once the submit button is created, 
+
 ```javascript
-myForm.createSubmit({
+form.createSubmit({
   text: "Submit", // defines Text to sit within the Button
   className: "cta", // custom className
   id: "formSubmit", // custom ID
+  onclick: form.validate // points the validation function
 });
 ```
 
-
-## Using `.validate()` - [WIP]
-
-This section is fully a WIP as I tackle a way to streamline the firing of events, but a small breakdown is as follows.
-
-Once happy with the layout of the Form, and having set up the `shouldValidate` prop for `createFormElement()`. You can call `form.validate()` from within your `onClick` handler... this is subject to change but for now this is how it works, an example is as follows.
-
-```javascript
-button.addEventListener("click", function (event) {
-  event.preventDefault();
-  form.validate();
-});
-```
 
 ## How `.validate()` works
 
