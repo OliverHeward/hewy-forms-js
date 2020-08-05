@@ -16,6 +16,8 @@ This Form library is currently WIP.
 
   * Complete with error handling, validation and submission.
 
+* Bot Honeypot input to deter scripted submissions.
+
 
 ## Declaring a new Form
 
@@ -59,32 +61,31 @@ var body = document.querySelector("body");
 body.appendChild(form.create());
 ```
 
+## How Creating Elements Work.
+
+When creating a given element for the form, an object is passed to the function, giving it `key`, `value` pairs to then be used upon creation of the element.
+
+### Key / Value pairing.
+| Key[Attribute]      | Value[Value] |
+| ------------------- | -----------  |
+| type                | @{string} text/email/tel/checkbox      |
+| placeholder         | Text         |
+
 ## Creating Input Fields
 
-Attached to the Form, is a prototype set up using `.createFormElement`.
+Attached to the Form, is a prototype set up using `.createInputElement`.
 
-`.createFormElement` takes in an object to set attributes for the given input.
+`.createInputElement` takes in an object with matching HTML attribute names with key values. Giving more flexibility to pass more attributes to given inputs.
 
 In this example, we are creating a `First Name` and `Phone` input fields.
 
 ```javascript
-form.createFormElement({
-  elementType: "input", // defines element type
-  inputType: "text", // defines input type
+form.createInputElement({
+  type: "text", // defines input type - will omit text if not assigned
   placeholder: "First Name", // defines placeholder text
   className: "form-input", // custom className
   id: "formInput", // custom ID
   name: "first_name", // defines name for $_POST
-  shouldValidate: true, // defines whether this element requires Validation
-});
-
-form.createFormElement({
-  elementType: "input", // defines element type
-  inputType: "tel", // defines input type
-  placeholder: "Phone Number", // defines placeholder text
-  className: "form-input", // custom className
-  id: "formInput", // custom ID
-  name: "phone", // defines name for $_POST
   shouldValidate: true, // defines whether this element requires Validation
 });
 ```
