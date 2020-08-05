@@ -76,7 +76,7 @@ Form.prototype.createInputElement = function (args) {
         if (key === "placeholder") {
           createLabel.innerText = value;
         } else if (
-          (key === "class" || key === "id") &&
+          key === "class" &&
           value.constructor.name === "Array"
         ) {
           for (var c = 0; c < value.length; c++) {
@@ -164,7 +164,6 @@ Form.prototype.createTextArea = function (args) {
         textContainer.insertBefore(sub_copy, textArea);
         break;
       case "class":
-        console.log(value.constructor.name);
         if (value.constructor.name === "Array") {
           for (var c = 0; c < value.length; c++) {
             textArea.classList.add(value[c]);

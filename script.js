@@ -7,7 +7,7 @@ myForm = new Form({
 
 body = document.querySelector(".form-container");
 body.appendChild(myForm.create());
-console.log(myForm);
+
 myForm.createInputElement({
   type: "text",
   placeholder: "First Name",
