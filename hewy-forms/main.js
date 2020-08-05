@@ -141,11 +141,11 @@ Form.prototype.createTextArea = function (args) {
   let textArea = document.createElement("TEXTAREA");
   textContainer.appendChild(textArea);
 
-  for(const [key, value] of Object.entries(args)) {
-    switch(key) {
+  for (const [key, value] of Object.entries(args)) {
+    switch (key) {
       case "title":
-        for(const [k, v] of Object.entries(args[key])) {
-          if(k === "value") {
+        for (const [k, v] of Object.entries(args[key])) {
+          if (k === "value") {
             heading.innerText = v;
           } else {
             heading.setAttribute(k, v);
@@ -154,8 +154,8 @@ Form.prototype.createTextArea = function (args) {
         textContainer.insertBefore(heading, textArea);
         break;
       case "copy":
-        for (const [k,v] of Object.entries(args[key])) {
-          if(k === "value") {
+        for (const [k, v] of Object.entries(args[key])) {
+          if (k === "value") {
             sub_copy.innerText = v;
           } else {
             sub_copy.setAttribute(k, v);
@@ -165,15 +165,15 @@ Form.prototype.createTextArea = function (args) {
         break;
       case "class":
         console.log(value.constructor.name);
-        if(value.constructor.name === "Array") {
-          for(var c = 0; c < value.length; c++) {
-            textArea.classList.add(value[c])
+        if (value.constructor.name === "Array") {
+          for (var c = 0; c < value.length; c++) {
+            textArea.classList.add(value[c]);
           }
         } else {
           textArea.classList.add(value);
         }
         break;
-      default: 
+      default:
         textArea.setAttribute(key, args[key]);
     }
   }

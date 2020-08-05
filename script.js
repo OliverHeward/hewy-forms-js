@@ -1,12 +1,12 @@
 myForm = new Form({
-    path: "./submit.php",
-    id: "form",
-    className: "create-form",
-    crossOrigin: false,
-  });
-  
-  body = document.querySelector(".form-container");
-  body.appendChild(myForm.create());
+  path: "./submit.php",
+  id: "form",
+  className: "create-form",
+  crossOrigin: false,
+});
+
+body = document.querySelector(".form-container");
+body.appendChild(myForm.create());
 console.log(myForm);
 myForm.createInputElement({
   type: "text",
@@ -63,21 +63,21 @@ myForm.createSelectElement({
 });
 
 myForm.createTextArea({
-    class: ["my-textarea", "text-area"],
-    id: "textArea",
-    placeholder: "Leave us a message...",
-    name: "message",
-    title: {
-      class: "text-area-title",
-      id: "title",
-      value: "Leave us a message!",
-    },
-    copy: {
-      class: "text-area-copy",
-      id: "textAreaCopy",
-      value: "Why not tell us more about your experience with us?",
-    },
-  });
+  class: ["my-textarea", "text-area"],
+  id: "textArea",
+  placeholder: "Leave us a message...",
+  name: "message",
+  title: {
+    class: "text-area-title",
+    id: "title",
+    value: "Leave us a message!",
+  },
+  copy: {
+    class: "text-area-copy",
+    id: "textAreaCopy",
+    value: "Why not tell us more about your experience with us?",
+  },
+});
 
 myForm.createInputElement({
   type: "checkbox",
@@ -96,10 +96,9 @@ myForm.createSubmit({
   id: "formSubmit",
 });
 
+var button = document.querySelector("button#formSubmit");
 
-var button = document.querySelector('button#formSubmit');
-
-button.addEventListener("click", function(event) {
-    event.preventDefault();
-    myForm.validate();
-})
+button.addEventListener("click", function (event) {
+  event.preventDefault();
+  myForm.validate();
+});
