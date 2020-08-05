@@ -73,7 +73,12 @@ When creating a given element for the form, an object is passed to the function,
 | class               | all        |`@{string}` `@[array]` - "form-input" ["form-input", "half-width"] |
 | id                  | all        |`@{string}` `@[array]` - "formInput" ["formInput", "firstName"] |
 | name                | all        |`@{string}` - "first_name" |
-| required            | all        |`@{boolean}` - true / false |
+| required            | almost all        |`@{boolean}` - true, false |
+| autocomplete        | all        |`@{boolean}` - true, false |
+| max                 | numeric types | `@{integer}` - 10      |
+| maxlength           | password, search, tel, text, url | `@{integer}` - 22 |
+| min                 | numeric types | `@{integer}` - 2 |
+| minlength           | password, search, tel, text, url | `@{integer}` - 3 |
 
 
 ## Creating Input Fields
